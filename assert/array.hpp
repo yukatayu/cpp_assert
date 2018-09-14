@@ -3,7 +3,17 @@
 
 constexpr double default_tolerance = 1e-4;
 
-template <class ElemType>
+struct is_subtractable_impl {
+    template <class T>
+    static auto check(T&& x)->decltype(x-x, std::true_type{});
+    template <class T>
+    static auto check(...)->std::false_type;
+};
+
+template <class T>
+struct is_subtractable : decltype(is_subtractable_impl::check<T>(std::declval<T>())){};
+
+template <class ElemType, std::enable_if_t<is_subtractable<ElemType>::value, std::nullptr_t> = nullptr>
 bool assertNear(const ElemType& expected, const ElemType& actual, const double tolerance = default_tolerance){
     if(std::abs(expected - actual) > tolerance)
         return false;
