@@ -22,6 +22,15 @@ void test(float a[][4][3], float b[][4][3]){
         success();
 }
 
+void test2(float x[], float y[]){
+
+    std::cerr << "testing (x = y) or (x = z) ( from test2() )" << std::endl;
+
+    // テンプレートに指定するものがプリミティブ型でも正常に動作する
+    if(assertNear<float>(3, x, y))
+        success();
+}
+
 int main(){
 
     float a[2][4][3] = {
@@ -64,4 +73,16 @@ line();
     std::cerr << "testing a = c" << std::endl;
     if(assertNear(a, c))
         success();
+
+line();
+
+    float x[3] = {1, 2,   3};
+    float y[3] = {1, 1.9, 3};
+    float z[3] = {1, 2,   3};
+    test2(x, y);
+
+line();
+
+    test2(x, z);
+
 }
