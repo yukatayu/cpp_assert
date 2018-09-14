@@ -18,3 +18,11 @@ bool assertNear(const ElemType (&expected)[arraySize], const ElemType (&actual)[
     return true;
 };
 
+template <class ElemType>
+bool assertNear(size_t arraySize, const ElemType *expected, const ElemType *actual, const double tolerance = default_tolerance){
+    for(size_t i=0; i<arraySize; ++i)
+        if(!assertNear(expected[i], actual[i], tolerance))
+            return false;
+    return true;
+};
+
