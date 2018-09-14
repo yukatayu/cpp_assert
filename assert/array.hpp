@@ -1,9 +1,9 @@
 #include <iostream>
 #include <cmath>
 
-constexpr double default_tolerance = 1e-4;
-
 namespace assert{
+
+constexpr double default_tolerance = 1e-4;
 
 namespace {
 
