@@ -3,6 +3,8 @@
 
 constexpr double default_tolerance = 1e-4;
 
+namespace assert{
+
 namespace {
 
     struct is_subtractable_impl {
@@ -48,4 +50,6 @@ inline bool assertNear(size_t arraySize, const ElemType *expected, const ElemTyp
     }
     return true;
 };
+
+}   // ~ namespace
 
