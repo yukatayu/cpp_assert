@@ -1,20 +1,67 @@
+#include <iostream>
+#include <iomanip>
+
 #include "assert/array.hpp"
+
+void success(){
+    std::cout << "\t-> \033[92mSuccess!\033[0m" << std::endl;
+}
+void line(){
+    std::cout << "\n ----------\n" << std::endl;
+}
 
 //[Usage]
 
-void test(float a[][4], float b[][4]){
+void test(float a[][4][3], float b[][4][3]){
+
+    std::cerr << "testing a = b ( from test() )" << std::endl;
+
     // 型情報から要素数を完全には推定できない場合
     // テンプレートの指定が必要
-    assertNear<float[4]>(2, a, b);
+    if(assertNear<float[4][3]>(2, a, b))
+        success();
 }
 
 int main(){
-    float a[2][4] = { 1, 2, 3, 4, 5,   6, 7, 8 };
-    float b[2][4] = { 1, 2, 3, 4, 5.2, 6, 7, 8 };
-    //型情報から要素数を完全に推定できる場合
-    //変数のみを渡せばいい。
+
+    float a[2][4][3] = {
+        1, 2, 3, 4, 5, 6, 7, 8,
+        1, 2, 3, 4, 5, 6, 7, 8,
+        1, 2, 3, 4, 5, 6, 7, 8,
+    };
+    float b[2][4][3] = {
+        1, 2, 3, 4, 5, 6,   7, 8,
+        1, 2, 3, 4, 5, 6.2, 7, 8,
+        1, 2, 3, 4, 5, 6,   7, 8,
+    };
+
+    float c[2][4][3] = {
+        1, 2, 3, 4, 5, 6, 7, 8,
+        1, 2, 3, 4, 5, 6, 7, 8,
+        1, 2, 3, 4, 5, 6, 7, 8,
+    };
+
+    //表示精度の指定
+    std::cerr << std::fixed << std::setprecision(5) << std::flush;
 
     //これらのテストは落ちる
-    assertNear(a, b);
+
+    std::cerr << "testing a = b" << std::endl;
+
+    //型情報から要素数を完全に推定できる場合
+    //変数のみを渡せばいい。
+    if(assertNear(a, b))
+        success();
+
+line();
+
+    //配列の長さが一部分からない場合
     test(a, b);
+
+line();
+
+    //成功するテスト
+    std::cerr << "testing a = c" << std::endl;
+    if(assertNear(a, c))
+        success();
 }
