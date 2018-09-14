@@ -3,6 +3,8 @@
 
 #include "assert/array.hpp"
 
+using namespace assert;
+
 void success(){
     std::cout << "\t-> \033[92mSuccess!\033[0m" << std::endl;
 }
