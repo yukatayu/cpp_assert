@@ -19,8 +19,7 @@ void test(float a[][4][3], float b[][4][3]){
     std::cerr << "testing a = b ( from test() )" << std::endl;
 
     // 型情報から要素数を完全には推定できない場合
-    // テンプレートの指定が必要
-    if(assertNear<float[4][3]>(2, a, b))
+    if(assertNear(2, a, b))
         success();
 }
 
@@ -28,8 +27,8 @@ void test2(float x[], float y[]){
 
     std::cerr << "testing (x = y) or (x = z) ( from test2() )" << std::endl;
 
-    // テンプレートに指定するものがプリミティブ型でも正常に動作する
-    if(assertNear<float>(3, x, y))
+    // プリミティブ型のポインタでも正常に動作する
+    if(assertNear(3, x, y))
         success();
 }
 
